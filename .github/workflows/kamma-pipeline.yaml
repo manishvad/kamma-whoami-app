@@ -33,3 +33,14 @@ jobs:
           # When `install-mode` is `binary` (default) the value can be v1.2 or v1.2.3 or `latest` to use the latest version.
           # When `install-mode` is `goinstall` the value can be v1.2.3, `latest`, or the hash of a commit.
           version: v1.53
+
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag "kamma/whoami:${{ env.VERSION_NUMBER }}"
+    
+    - name: Scan for vulnerabilities
+      id: scan
+      uses: crazy-max/ghaction-container-scan@v2
+      with:
+        image: "kamma/whoami:${{ env.VERSION_NUMBER }}"
+        dockerfile: ./Dockerfile
+        severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
