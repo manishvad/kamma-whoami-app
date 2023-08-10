@@ -3,3 +3,6 @@
 *.0_x5
 *.tfstate
 *.backup
+tfmodules/3-deployment-role/.terraform/providers/registry.terraform.io/hashicorp/tls/4.0.4/darwin_amd64/terraform-provider-tls_v4.0.4_x5
+tfmodules/3-deployment-role/.terraform/modules/iam_github_oidc_provider/
+tfmodules/3-deployment-role/.terraform/modules/modules.json
