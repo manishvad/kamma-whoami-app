@@ -6,3 +6,6 @@
 tfmodules/3-deployment-role/.terraform/providers/registry.terraform.io/hashicorp/tls/4.0.4/darwin_amd64/terraform-provider-tls_v4.0.4_x5
 tfmodules/3-deployment-role/.terraform/modules/iam_github_oidc_provider/
 tfmodules/3-deployment-role/.terraform/modules/modules.json
+tfmodules/4-build-k8s-environment/.DS_Store
+tfmodules/4-build-k8s-environment/.terraform/modules/modules.json
+tfmodules/4-build-k8s-environment/.terraform/modules/vpc/
