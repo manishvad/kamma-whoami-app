@@ -31,6 +31,10 @@ jobs:
         role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_NUMBER }}:role/github-actions-role
         role-session-name: samplerolesession
         aws-region: eu-west-1
+    
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
 
     - uses: actions/setup-go@v4
       with:
