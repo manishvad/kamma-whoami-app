@@ -37,3 +37,11 @@ Please follow step by step ...
 (6) Make a commit inside this repository and GitHub actions pipeline will be triggered. Check the `Actions` tab in this repository to view the pipeline in action. 
 
 (7) Once the pipeline has run the relevant tests, login to the AWS web console and check that the docker container built has been pushed to the AWS ECR repository. We are now ready to start deploying the web application to the k8s cluster running on the EC2 instance.
+
+(8) `ssh -i "<key-pem>" ec2-user@<dns-address>`
+
+- Login into the EC2 Instance
+
+(9) `minikube start --vm-driver=docker`
+
+- Create the k8s minikube cluster. Once the cluster is up and running you are ready to deploy the web application to the k8s cluster, please visit the `kamma-k8-manifest-files` repository for the next set of instructions.
