@@ -20,6 +20,13 @@ jobs:
       run: |
         echo "VERSION_NUMBER=$((GITHUB_RUN_NUMBER))" >> $GITHUB_ENV
         cat $GITHUB_ENV
+ 
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2 
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_NUMBER }}:role/github-actions-role
+        role-session-name: samplerolesession
+        aws-region: eu-west-1
 
     - uses: actions/setup-go@v4
       with:
