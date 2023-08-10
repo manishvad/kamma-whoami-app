@@ -58,3 +58,13 @@ jobs:
 
     - name: JSON result
       run: cat ${{ steps.scan.outputs.json }} 
+
+    # when tests runs successfully will build final image and push to ECR 
+    - name: Build, tag, and push docker image to Amazon ECR
+      env:
+        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        REPOSITORY: kamma-ecr-repo
+        IMAGE_TAG: "kamma-whoami-${{ env.VERSION_NUMBER }}"
+      run: |
+        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+        docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
