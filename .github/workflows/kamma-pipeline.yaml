@@ -44,3 +44,6 @@ jobs:
         image: "kamma/whoami:${{ env.VERSION_NUMBER }}"
         dockerfile: ./Dockerfile
         severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
+    - name: JSON result
+      run: cat ${{ steps.scan.outputs.json }} 
