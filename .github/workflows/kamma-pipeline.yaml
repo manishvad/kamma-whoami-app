@@ -33,7 +33,9 @@ jobs:
             StrictHostKeyChecking no
           END 
     - name: List home directory
-      run: ssh ec2-user 'ls -la'
+      run: 
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/github-actions-key ec2-user@${{ secrets.SSH_HOST }} '
+        ls -l'
 
     - name: Set version number
       run: |
