@@ -90,7 +90,7 @@ jobs:
         SSH_USER: "ec2-user"
         SSH_KEY: "${{ secrets.PRIVATE_KEY }}" 
     - name: Run check instance
-      run: ssh ec2 './check-instance.sh'
+      run: ssh ec2 'chmod 755 check-instance.sh && ./check-instance.sh'
     
     - name: Pull the image from ECR with correct tag
       run: ssh ec2 'docker pull ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.eu-west-1.amazonaws.com/kamma-ecr-repo:kamma-whoami-${{ env.VERSION_NUMBER }}'
