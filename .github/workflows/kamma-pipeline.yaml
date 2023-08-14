@@ -20,20 +20,21 @@ jobs:
     -  name: Checkout
        uses: actions/checkout@v3
     
-    - name: Build & Deploy k8s manifest files
-      uses: JimCronqvist/action-ssh@master
+    - name: Add SSH key
       env:
-        PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         HOSTNAME: ${{secrets.SSH_HOST}}
-        USER_NAME: "ec2-user"
-      with:
-       hosts: '${USER_NAME}@${HOSTNAME}'
-       privateKey: ${{ secrets.PRIVATE_KEY }}
-       debug: false
-       command: |
-         ls -lah
-         hostname -a
-         whoami
+        #USER_NAME: ${{secrets.USER_NAME}}
+        run: |
+          mkdir -p /home/runner/.ssh
+          # Replace example.com with the hostname of the machine
+          # you're SSH-ing into
+          ssh-keyscan ${{secrets.SSH_HOST}} >> /home/runner/.ssh/known_hosts
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > /home/runner/.ssh/github_actions
+          chmod 400 /home/runner/.ssh/github_actions
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
+          ssh-add /home/runner/.ssh/github_actions
+          ls -l /home/runner/.ssh/github_actions
 
     - name: Set version number
       run: |
