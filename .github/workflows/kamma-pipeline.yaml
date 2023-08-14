@@ -110,8 +110,8 @@ jobs:
     - name: Replace the tag number with ${{ env.VERSION_NUMBER }}
       run: ssh ec2 'sed -i 's/image_tag/${{ env.VERSION_NUMBER }}/g' /home/ec2-user/deployment-${{ env.VERSION_NUMBER }}.yaml'
 
-    - name: Replace the account number with ${{ env.AWS_ACCOUNT_NUMBER }}
-      run: ssh ec2 'sed -i 's/aws_account_number/${{ env.AWS_ACCOUNT_NUMBER }}/g' /home/ec2-user/deployment-${{ env.VERSION_NUMBER }}.yaml'
+    - name: Replace the account number with ${{ secrets.AWS_ACCOUNT_NUMBER }}
+      run: ssh ec2 'sed -i 's/aws_account_number/${{ secrets.AWS_ACCOUNT_NUMBER }}/g' /home/ec2-user/deployment-${{ env.VERSION_NUMBER }}.yaml'
       
     - name: Apply the Kubernetes deployment deployment-${{ env.VERSION_NUMBER }}.yaml
       run: ssh ec2 'kubectl apply -f deployment-${{ env.VERSION_NUMBER }}.yaml'
