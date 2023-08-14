@@ -101,8 +101,8 @@ jobs:
     - name: Create Kubernetes manifest files for deployment.yaml image version ${{ env.VERSION_NUMBER }}
       run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/deployment.yaml /home/ec2-user/deployment_v${{ env.VERSION_NUMBER }.yaml'
 
-    - name: Create Kubernetes manifest files for service.yaml image version ${{ env.VERSION_NUMBER }}
-      run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/service.yaml /home/ec2-user/service_v${{ env.VERSION_NUMBER }.yaml'      
+    #- name: Create Kubernetes manifest files for service.yaml image version ${{ env.VERSION_NUMBER }}
+    #  run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/service.yaml /home/ec2-user/service_v${{ env.VERSION_NUMBER }.yaml'      
       
 
       
