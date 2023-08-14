@@ -85,5 +85,5 @@ jobs:
 
             # Now we have got the access of EC2 and we will start the deploy .
             cd /home/ec2-user
-            ls -l 
+            ls -l'
 
