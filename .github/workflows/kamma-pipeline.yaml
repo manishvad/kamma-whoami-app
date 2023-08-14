@@ -20,12 +20,20 @@ jobs:
     -  name: Checkout
        uses: actions/checkout@v3
     
-    - name: Create SSH key
+    - name: Configure SSH
       run: |
-        mkdir -p ~/.ssh/
-        echo ${{ secrets.PRIVATE_KEY }} > ../private.key
-        sudo chmod 600 ../private.key
-        echo ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >>~/.ssh/config <<END
+          Host ec2
+            HostName "${{ secrets.SSH_HOST }}"
+            User ec2-user
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END 
+    - name: List home directory
+      run: ssh ec2 'ls -la'
 
     - name: Set version number
       run: |
