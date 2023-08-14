@@ -102,11 +102,17 @@ jobs:
       run: ssh ec2 'minikube addons enable ingress'
     
     - name: Create Kubernetes manifest files for deployment.yaml image version ${{ env.VERSION_NUMBER }}
-      run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/deployment.yaml deployment-${{ env.VERSION_NUMBER }}.yaml'
+      run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/deployment.yaml /home/ec2-user/deployment-${{ env.VERSION_NUMBER }}.yaml'
 
     - name: Create Kubernetes manifest files for service.yaml image version ${{ env.VERSION_NUMBER }}
       run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/service.yaml /home/ec2-user/service-${{ env.VERSION_NUMBER }}.yaml'
 
+    - name: Replace the tag number with ${{ env.VERSION_NUMBER }}
+      run: ssh ec2 'sed -i 's/<tag_number>/${{ env.VERSION_NUMBER }}/g' /home/ec2-user/deployment-${{ env.VERSION_NUMBER }}.yaml'
+
+    - name: Replace the account number with ${{ env.AWS_ACCOUNT_NUMBER }}
+      run: ssh ec2 'sed -i 's/<aws_account_number>/${{ secrets.AWS_ACCOUNT_NUMBER }}/g' /home/ec2-user/deployment-${{ env.VERSION_NUMBER }}.yaml'
+      
     - name: Apply the Kubernetes deployment deployment-${{ env.VERSION_NUMBER }}.yaml
       run: ssh ec2 'kubectl apply -f deployment-${{ env.VERSION_NUMBER }}.yaml'
 
