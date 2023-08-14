@@ -10,6 +10,8 @@ Once the image is stored in AWS ECR the pipeline will allow the application to b
 
 The root account is not used for deploying the infrastructure as this is not safe. Therefore, I have manually created myself an IAM user called `manishvadgama` from the root account which is attached to a role called `AdminRole` for minimal permissions. This allows us to have a AWS user account called `manishvadgama` to work with.  The user account `manishvadgama` will also have a key pair created manually required for logging into an EC2 instance at a later stage.
 
+Also to note for security reasons when building the EC2 image (from fresh) the public DNS name will change, so the GitHub Action secrets SSH_HOST also needs to be changed. 
+
 # Instructions
 
 Please follow step by step ...
