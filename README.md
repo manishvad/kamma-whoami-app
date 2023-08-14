@@ -4,8 +4,7 @@
 
 This GitHub repository contains the necessary files and Dockerfile to build the whoami image. If a commit is made in this repository, GitHub actions will trigger a pipeline and start building the docker image. The pipeline will run relevant test cases and the docker image will be stored in AWS ECR with a relevant tag.
 
-K8s runs on an EC2 instance where the whoami image is deployed using k8s manifest files and the image is pulled from ECR repository.
-
+Once the image is stored in AWS ECR the pipeline will allow the application to be automatically deployed to the Kubernetes cluster. Use this guide to setup the infrastructure before attempting to make a change to the repository and deploying the web application. 
 
 # Note before starting 
 
