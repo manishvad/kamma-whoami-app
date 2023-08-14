@@ -37,9 +37,7 @@ jobs:
         SSH_USER: "ec2-user"
         SSH_KEY: "${{ secrets.PRIVATE_KEY }}" 
     - name: List home directory
-      run: ssh ec2 'cat >> test.sh <<EOF
-          echo "Check docker is running ..."
-          EOF'
+      run: ssh ec2 'ls -l' && 'touch abc.txt'
 
     - name: Set version number
       run: |
