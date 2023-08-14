@@ -98,8 +98,8 @@ jobs:
     - name: Load image into K8s Minikube
       run: ssh ec2 'minikube image load ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.eu-west-1.amazonaws.com/kamma-ecr-repo:kamma-whoami-${{ env.VERSION_NUMBER }}'
     
-    - name: Create Kubernetes manifest files for deployment.yaml image version ${{ env.VERSION_NUMBER }}
-      run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/deployment.yaml deployment_${{ env.VERSION_NUMBER }.yaml'
+    #- name: Create Kubernetes manifest files for deployment.yaml image version ${{ env.VERSION_NUMBER }}
+    #  run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/deployment.yaml deployment_${{ env.VERSION_NUMBER }.yaml'
 
     #- name: Create Kubernetes manifest files for service.yaml image version ${{ env.VERSION_NUMBER }}
     #  run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/service.yaml /home/ec2-user/service_v${{ env.VERSION_NUMBER }.yaml'      
