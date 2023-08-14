@@ -19,25 +19,6 @@ jobs:
     steps:
     -  name: Checkout
        uses: actions/checkout@v3
-    
-    - name: Configure SSH
-      run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/github-actions-key
-          chmod 600 ~/.ssh/github-actions-key
-          cat >>~/.ssh/config <<END
-          Host ec2
-            HostName "${{ secrets.SSH_HOST }}"
-            User "ec2-user"
-            IdentityFile ~/.ssh/github-actions-key
-            StrictHostKeyChecking no
-          END
-      env:
-        SSH_HOST: "${{ secrets.SSH_HOST }}"
-        SSH_USER: "ec2-user"
-        SSH_KEY: "${{ secrets.PRIVATE_KEY }}" 
-    - name: List home directory
-      run: ssh ec2 'ls -l' && 'touch abc.txt'
 
     - name: Set version number
       run: |
@@ -91,5 +72,24 @@ jobs:
       run: |
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+    - name: Configure SSH
+      run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >>~/.ssh/config <<END
+          Host ec2
+            HostName "${{ secrets.SSH_HOST }}"
+            User "ec2-user"
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END
+      env:
+        SSH_HOST: "${{ secrets.SSH_HOST }}"
+        SSH_USER: "ec2-user"
+        SSH_KEY: "${{ secrets.PRIVATE_KEY }}" 
+    - name: List home directory
+      run: ssh ec2 './check-instance.sh'
 
 
