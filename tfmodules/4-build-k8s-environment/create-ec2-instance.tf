@@ -89,6 +89,7 @@ resource "aws_instance" "kamma_ec2_instance" {
  
   user_data = <<EOF
 #!/bin/bash
+
 sudo yum install git -y
 sleep 5
 
@@ -115,4 +116,23 @@ EOF
 tags = {
       tag-key = "kamma-ec2-instance"
   }
+
+provisioner "file" {
+    source      = "check-instance.sh"
+    destination = "/home/ec2-user/check-instance.sh"
+    
+     connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = "${file("/Users/manishvadgama/.ssh/manish-key-pair.pem")}"
+      host        = "${self.public_ip}"
+    }
+
+    provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /home/ec2-user/check-instance.sh",
+    ]
+  }
+  }
+
 }
