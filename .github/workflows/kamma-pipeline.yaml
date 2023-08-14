@@ -32,8 +32,8 @@ jobs:
             IdentityFile ~/.ssh/github-actions-key
             StrictHostKeyChecking no
           END 
-    #- name: List home directory
-    #  run: ssh ec2 'ls -la'
+    - name: List home directory
+      run: ssh ec2-user 'ls -la'
 
     - name: Set version number
       run: |
