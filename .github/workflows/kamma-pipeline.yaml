@@ -102,11 +102,7 @@ jobs:
       run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/deployment.yaml /home/ec2-user/deployment_v${{ env.VERSION_NUMBER }.yaml'
 
     - name: Create Kubernetes manifest files for service.yaml image version ${{ env.VERSION_NUMBER }}
-      run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/service.yaml /home/ec2-user/service_v${{ env.VERSION_NUMBER }.yaml'
-
-    - name: Ammed the Kubernetes manifest files for image version ${{ env.VERSION_NUMBER }}
-      run: ssh ec2 'sed -i 's/<tag_number>/${{ env.VERSION_NUMBER }}/g' /home/ec2-user/deployment_${{ env.VERSION_NUMBER }}.yaml && sed -i 's/<account_number>/${{ secrets.AWS_ACCOUNT_NUMBER }}/g' /home/ec2-user/deployment_${{ env.VERSION_NUMBER }}.yaml'
-      
+      run: ssh ec2 'cp /home/ec2-user/kamma-k8-manifest-files/service.yaml /home/ec2-user/service_v${{ env.VERSION_NUMBER }.yaml'      
       
 
       
