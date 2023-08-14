@@ -20,17 +20,12 @@ jobs:
     -  name: Checkout
        uses: actions/checkout@v3
     
-    - name: Add SSH key
+    - name: Create SSH key
       run: |
-                  mkdir -p /home/runner/.ssh
-                  # you're SSH-ing into
-                  ssh-keyscan ${{ secrets.SSH_HOST }} >> /home/runner/.ssh/known_hosts
-                  # DOKKU_SSH_KEY is the name of the repository secret
-                  echo "${{ secrets.PRIVATE_KEY }}" > /home/runner/.ssh/github_actions
-                  chmod 400 /home/runner/.ssh/github_actions
-                  ssh-agent -a /tmp/ssh_agent.sock > /dev/null	
-                  ssh-add /home/runner/.ssh/github_actions
-                  ls -l /home/runner/.ssh/github_actions
+        mkdir -p ~/.ssh/
+        echo ${{ secrets.PRIVATE_KEY }} > ../private.key
+        sudo chmod 600 ../private.key
+        echo ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 
     - name: Set version number
       run: |
