@@ -21,16 +21,19 @@ jobs:
        uses: actions/checkout@v3
     
     - name: Build & Deploy k8s manifest files
+      uses: JimCronqvist/action-ssh@master
       env:
         PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         HOSTNAME: ${{secrets.SSH_HOST}}
-        USER_NAME: 'ec2-user'
-      run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${{secrets.SSH_HOST}} '
-
-              # Now we have got the access of EC2 and we will start the deploy .
-              ls -l'
+        USER_NAME: "ec2-user"
+      with:
+       hosts: '${USER_NAME}@${HOSTNAME}'
+       privateKey: ${{ secrets.PRIVATE_KEY }}
+       debug: false
+       command: |
+         ls -lah
+         hostname -a
+         whoami
 
     - name: Set version number
       run: |
