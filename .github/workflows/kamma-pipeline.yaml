@@ -117,10 +117,10 @@ jobs:
       run: ssh ec2 'kubectl apply -f deployment-${{ env.VERSION_NUMBER }}.yaml'
 
     - name: Apply the Kubernetes service service-${{ env.VERSION_NUMBER }}.yaml
-      run: ssh ec2 '/home/ec2-user/service-${{ env.VERSION_NUMBER }}.yaml'
+      run: ssh ec2 'kubectl apply -f service-${{ env.VERSION_NUMBER }}.yaml'
 
     - name: Check the Kubernetes service
-      run: ssh ec2 'kubectl get svc && echo "Kamma web application deployed :) " '
+      run: ssh ec2 'minikube service kamma-web-app --url && echo "Kamma web application deployed :) "'
     
 
       
