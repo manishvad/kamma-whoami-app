@@ -27,9 +27,10 @@ jobs:
           #USER_NAME: ec2-user
       
       run: |
-        echo ${{ secrets.SSH_PRIVATE_KEY }} > private_key && chmod 400 private_key
-        ls -l private_key
-        ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${{secrets.SSH_HOST}} '
+        echo ${{ secrets.SSH_PRIVATE_KEY }} > private_key.pem && chmod 400 private_key.pem
+        ls -l private_key.pem
+        
+        ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@${{secrets.SSH_HOST}} '
             # Now we have got the access of EC2 and we will start the deploy .
             cd /home/ec2-user
             ls -l'
