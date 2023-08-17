@@ -128,11 +128,6 @@ provisioner "file" {
       host        = "${self.public_ip}"
     }
 
-    provisioner "remote-exec" {
-    inline = [
-      "sudo chmod +x /home/ec2-user/check-instance.sh",
-    ]
-  }
   }
 
 }
