@@ -24,3 +24,5 @@ COPY --from=builder /go/whoami/whoami .
 
 ENTRYPOINT ["/whoami"]
 EXPOSE 80
+
+
